@@ -6,6 +6,7 @@ import Rentals from './pages/Rentals'
 import Payments from './pages/Payments'
 import Reports from './pages/Reports'
 import Activity from './pages/Activity'
+import Cache from './pages/Cache'
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <NavLink to="/payments">Payments</NavLink>
         <NavLink to="/reports">Reports</NavLink>
         <NavLink to="/activity">Activity</NavLink>
+        <NavLink to="/cache">Cache</NavLink>
       </nav>
       <Routes>
         <Route path="/" element={<Dashboard />} />
@@ -28,6 +30,7 @@ export default function App() {
         <Route path="/payments" element={<Payments />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/activity" element={<Activity />} />
+        <Route path="/cache" element={<Cache />} />
       </Routes>
     </BrowserRouter>
   )

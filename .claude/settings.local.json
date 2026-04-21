@@ -6,7 +6,12 @@
       "Bash(docker exec dvdrental-django *)",
       "Bash(echo \"Exit: $?\")",
       "Bash(echo \"exit: $?\")",
-      "Bash(curl -s \"http://localhost:8000/api/activity-log?page=1&page_size=5\")"
+      "Bash(curl -s \"http://localhost:8000/api/activity-log?page=1&page_size=5\")",
+      "Bash(curl -s \"http://localhost:8080/api/cache/entries\")",
+      "Bash(python -m json.tool)",
+      "Bash(curl -s \"http://localhost:8080/api/cache/film/1/probe\")",
+      "Bash(curl -s -X DELETE \"http://localhost:8080/api/cache/evict?key=film::1\")",
+      "Bash(curl -s -X POST \"http://localhost:8080/api/cache/film/1/warm\")"
     ]
   }
 }
