@@ -17,7 +17,10 @@
       "Bash(curl -s \"http://localhost:8080/api/reports/films/top?limit=2\")",
       "Bash(curl -s \"http://localhost:8080/api/reports/customers/top?limit=2\")",
       "Bash(curl -s \"http://localhost:8080/api/reports/revenue/monthly?year=2007\")",
-      "Bash(curl -s \"http://localhost:8080/api/reports/rentals/by-category\")"
+      "Bash(curl -s \"http://localhost:8080/api/reports/rentals/by-category\")",
+      "Read(//c/Users/Staff/**)",
+      "Read(//c/Program Files/**)",
+      "Read(//c/Program Files \\(x86\\)/**)"
     ]
   }
 }
