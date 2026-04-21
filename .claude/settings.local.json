@@ -11,7 +11,13 @@
       "Bash(python -m json.tool)",
       "Bash(curl -s \"http://localhost:8080/api/cache/film/1/probe\")",
       "Bash(curl -s -X DELETE \"http://localhost:8080/api/cache/evict?key=film::1\")",
-      "Bash(curl -s -X POST \"http://localhost:8080/api/cache/film/1/warm\")"
+      "Bash(curl -s -X POST \"http://localhost:8080/api/cache/film/1/warm\")",
+      "Bash(curl -s \"http://localhost:8080/api/films/search?keyword=academy&page=0&size=5\")",
+      "Bash(curl -s \"http://localhost:5173/api/films/search?keyword=dinosaur&page=0&size=5\")",
+      "Bash(curl -s \"http://localhost:8080/api/reports/films/top?limit=2\")",
+      "Bash(curl -s \"http://localhost:8080/api/reports/customers/top?limit=2\")",
+      "Bash(curl -s \"http://localhost:8080/api/reports/revenue/monthly?year=2007\")",
+      "Bash(curl -s \"http://localhost:8080/api/reports/rentals/by-category\")"
     ]
   }
 }

@@ -55,15 +55,13 @@ export default function Reports() {
             <div className="card">
               <h2>Top Rented Films</h2>
               <table>
-                <thead><tr><th>#</th><th>Title</th><th>Category</th><th>Rentals</th><th>Revenue</th></tr></thead>
+                <thead><tr><th>#</th><th>Title</th><th>Rentals</th></tr></thead>
                 <tbody>
                   {topFilms.map((f, i) => (
                     <tr key={i}>
                       <td>{i + 1}</td>
                       <td>{f.title}</td>
-                      <td>{f.category}</td>
                       <td>{f.rentalCount}</td>
-                      <td>${Number(f.revenue).toFixed(2)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -78,8 +76,8 @@ export default function Reports() {
                   {topCustomers.map((c, i) => (
                     <tr key={i}>
                       <td>{i + 1}</td>
-                      <td>{c.firstName} {c.lastName}</td>
-                      <td>{c.rentalCount}</td>
+                      <td>{c.name}</td>
+                      <td>{c.totalRentals}</td>
                       <td>${Number(c.totalSpent).toFixed(2)}</td>
                     </tr>
                   ))}
@@ -96,9 +94,9 @@ export default function Reports() {
                 <tbody>
                   {revenue.map((r, i) => (
                     <tr key={i}>
-                      <td>{r.year}-{String(r.month).padStart(2, '0')}</td>
-                      <td>{r.paymentCount}</td>
-                      <td>${Number(r.totalRevenue).toFixed(2)}</td>
+                      <td>{year}-{String(r.month).padStart(2, '0')}</td>
+                      <td>{r.transactionCount}</td>
+                      <td>${Number(r.revenue).toFixed(2)}</td>
                     </tr>
                   ))}
                   {revenue.length === 0 && <tr><td colSpan={3} style={{ textAlign: 'center', color: '#888' }}>No data for {year}</td></tr>}
@@ -114,7 +112,7 @@ export default function Reports() {
                   {category.map((c, i) => (
                     <tr key={i}>
                       <td>{c.category}</td>
-                      <td>{c.rentalCount}</td>
+                      <td>{c.totalRentals}</td>
                       <td>${Number(c.totalRevenue).toFixed(2)}</td>
                     </tr>
                   ))}

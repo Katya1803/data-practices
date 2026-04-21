@@ -30,10 +30,13 @@ export default function Films() {
     } else {
       const params = new URLSearchParams({ page, size })
       if (rating) params.set('rating', rating)
-      req = (search
-        ? api.get(`/api/films/search?q=${encodeURIComponent(search)}&${params}`)
-        : api.get(`/api/films?${params}`)
-      ).then(r => { setFilms(r.data.data.content); setTotal(r.data.data.totalElements) })
+      if (search) {
+        req = api.get(`/api/films/search?keyword=${encodeURIComponent(search)}&${params}`)
+          .then(r => { setFilms(r.data.data); setTotal(r.data.data.length) })
+      } else {
+        req = api.get(`/api/films?${params}`)
+          .then(r => { setFilms(r.data.data.content); setTotal(r.data.data.totalElements) })
+      }
     }
 
     req.catch(() => setError('Failed to load films'))

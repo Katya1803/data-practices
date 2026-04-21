@@ -35,16 +35,14 @@ export default function Dashboard() {
           <h2>Top 5 Rented Films</h2>
           <table>
             <thead>
-              <tr><th>#</th><th>Title</th><th>Category</th><th>Rentals</th><th>Revenue</th></tr>
+              <tr><th>#</th><th>Title</th><th>Rentals</th></tr>
             </thead>
             <tbody>
               {topFilms.map((f, i) => (
                 <tr key={i}>
                   <td>{i + 1}</td>
                   <td>{f.title}</td>
-                  <td>{f.category}</td>
                   <td>{f.rentalCount}</td>
-                  <td>${Number(f.revenue).toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>
@@ -61,8 +59,8 @@ export default function Dashboard() {
               {topCustomers.map((c, i) => (
                 <tr key={i}>
                   <td>{i + 1}</td>
-                  <td>{c.firstName} {c.lastName}</td>
-                  <td>{c.rentalCount}</td>
+                  <td>{c.name}</td>
+                  <td>{c.totalRentals}</td>
                   <td>${Number(c.totalSpent).toFixed(2)}</td>
                 </tr>
               ))}
@@ -80,9 +78,9 @@ export default function Dashboard() {
           <tbody>
             {revenue.map((r, i) => (
               <tr key={i}>
-                <td>{r.year}-{String(r.month).padStart(2, '0')}</td>
-                <td>{r.paymentCount}</td>
-                <td>${Number(r.totalRevenue).toFixed(2)}</td>
+                <td>2007-{String(r.month).padStart(2, '0')}</td>
+                <td>{r.transactionCount}</td>
+                <td>${Number(r.revenue).toFixed(2)}</td>
               </tr>
             ))}
           </tbody>
