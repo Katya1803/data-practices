@@ -9,12 +9,18 @@ case "$CMD" in
 
   run)
     # Build images and start everything (use this first time or after code changes)
-    docker compose up --build
+    docker compose up --build -d
+    echo ""
+    echo "All services starting. Run './docker.sh logs' to follow logs."
+    echo "UI: http://localhost:5173"
     ;;
 
   start)
     # Start without rebuilding (faster, use when images already built)
-    docker compose up
+    docker compose up -d
+    echo ""
+    echo "All services started. Run './docker.sh logs' to follow logs."
+    echo "UI: http://localhost:5173"
     ;;
 
   stop)

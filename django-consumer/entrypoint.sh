@@ -10,7 +10,7 @@ import psycopg2, sys
 try:
     psycopg2.connect(host='$DB_HOST', port=$DB_PORT, dbname='postgres', user='postgres', password='postgres')
     sys.exit(0)
-except:
+except Exception:
     sys.exit(1)
 " 2>/dev/null; do
   sleep 2
