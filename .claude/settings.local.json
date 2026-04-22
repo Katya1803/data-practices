@@ -20,7 +20,8 @@
       "Bash(curl -s \"http://localhost:8080/api/reports/rentals/by-category\")",
       "Read(//c/Users/Staff/**)",
       "Read(//c/Program Files/**)",
-      "Read(//c/Program Files \\(x86\\)/**)"
+      "Read(//c/Program Files \\(x86\\)/**)",
+      "Bash(curl -sf http://localhost:8080/actuator/health)"
     ]
   }
 }

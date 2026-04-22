@@ -730,6 +730,74 @@ Ba sự kiện được publish sau khi write vào DB thành công.
 
 ---
 
+## Nhóm 6 — Realtime Stats (Kafka Consumer)
+
+### Thiết kế consumer
+
+Tạo một **Kafka Consumer** trong Spring Boot lắng nghe 3 topic (`rental.created`, `rental.returned`, `payment.processed`) và cập nhật counter real-time vào Redis.
+
+Consumer group: `springboot-stats-group` — **khác** với Django's `dvdrental-group`, nên cả hai nhận đầy đủ message độc lập nhau.
+
+**Redis keys** được dùng để lưu counter theo ngày:
+
+| Key | Tăng khi nào | Redis command |
+|-----|-------------|---------------|
+| `stats:rentals:{date}` | Nhận event `rental.created` | `INCR` |
+| `stats:returns:{date}` | Nhận event `rental.returned` | `INCR` |
+| `stats:payments:{date}` | Nhận event `payment.processed` | `INCR` |
+| `stats:revenue:{date}` | Nhận event `payment.processed` | `INCRBYFLOAT` |
+
+**Lưu ý triển khai:**
+- Producer dùng `spring.json.add.type.headers=false` → consumer không đọc được type header → dùng `StringDeserializer` và parse JSON thủ công bằng `ObjectMapper`
+- Cần tạo một `ConcurrentKafkaListenerContainerFactory` riêng (đặt tên `statsListenerContainerFactory`) dùng `StringDeserializer`, không dùng factory mặc định của Spring Boot
+- `auto.offset.reset=earliest` → khi lần đầu consumer group join, nó đọc lại toàn bộ event lịch sử
+
+---
+
+### `GET /api/stats/realtime`
+
+Đọc các counter từ Redis và trả về thống kê hoạt động trong một ngày.
+
+**Query params:**
+
+| Tên | Kiểu | Bắt buộc | Mô tả |
+|-----|------|----------|-------|
+| `date` | String (ISO: `yyyy-MM-dd`) | Không | Mặc định là ngày hôm nay |
+
+**Response** `ApiResponse<RealtimeStatsDto>`:
+
+```json
+{
+  "success": true,
+  "data": {
+    "date": "2026-04-22",
+    "rentalsCreated": 5,
+    "rentalsReturned": 3,
+    "paymentsProcessed": 4,
+    "totalRevenue": 17.96
+  },
+  "message": null
+}
+```
+
+Nếu chưa có event nào trong ngày:
+
+```json
+{
+  "success": true,
+  "data": {
+    "date": "2026-04-22",
+    "rentalsCreated": 0,
+    "rentalsReturned": 0,
+    "paymentsProcessed": 0,
+    "totalRevenue": 0
+  },
+  "message": null
+}
+```
+
+---
+
 ## Gợi ý thứ tự tự học
 
 1. Setup project Spring Boot với đúng dependencies (`spring-boot-starter-web`, `spring-boot-starter-data-jpa`, `spring-boot-starter-cache`, `spring-kafka`, `spring-boot-starter-data-redis`)
@@ -741,3 +809,4 @@ Ba sự kiện được publish sau khi write vào DB thành công.
 7. Implement **Payments API** — tương tự Rentals nhưng đơn giản hơn
 8. Implement **Reports API** — thuần SQL aggregate, cache dài
 9. Thêm `GlobalExceptionHandler` để trả lỗi đúng format `ApiResponse`
+10. Implement **Realtime Stats Consumer** — `@KafkaListener`, custom `ContainerFactory`, Redis INCR

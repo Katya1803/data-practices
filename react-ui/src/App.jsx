@@ -7,6 +7,7 @@ import Payments from './pages/Payments'
 import Reports from './pages/Reports'
 import Activity from './pages/Activity'
 import Cache from './pages/Cache'
+import Stats from './pages/Stats'
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
         <NavLink to="/reports">Reports</NavLink>
         <NavLink to="/activity">Activity</NavLink>
         <NavLink to="/cache">Cache</NavLink>
+        <NavLink to="/stats">Stats</NavLink>
       </nav>
       <Routes>
         <Route path="/" element={<Dashboard />} />
@@ -31,6 +33,7 @@ export default function App() {
         <Route path="/reports" element={<Reports />} />
         <Route path="/activity" element={<Activity />} />
         <Route path="/cache" element={<Cache />} />
+        <Route path="/stats" element={<Stats />} />
       </Routes>
     </BrowserRouter>
   )
